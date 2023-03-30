@@ -9,12 +9,12 @@
 using log4net;
 using System.Configuration;
 
-namespace ConsumirApi
+namespace ConsumirApi.app
 {
     public class Program
     {
-        private static readonly ILog Log = Logs.GetLogger();
-        
+        private static readonly ILog Log = loadLogs.Logs.GetLogger();
+
 
         private static void Main()
         {

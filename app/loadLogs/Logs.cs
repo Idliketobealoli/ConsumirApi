@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsumirApi
+namespace ConsumirApi.app.loadLogs
 {
     internal class Logs
     {
