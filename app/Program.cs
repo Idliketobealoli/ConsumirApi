@@ -15,7 +15,6 @@ namespace ConsumirApi.app
     {
         private static readonly ILog Log = loadLogs.Logs.GetLogger();
 
-
         private static void Main()
         {
             LoadConfig();
