@@ -16,7 +16,7 @@ namespace ConsumirApi.app.models.consumo
 
         public void Show()
         {
-            Console.WriteLine($"\tPokemons en total: {Pokemons.Count}");
+            Console.WriteLine($"*** --- Pokemons en total: {Pokemons.Count}");
             foreach ( var pokemon in Pokemons )
             {
                 Console.WriteLine(pokemon.ToString());
@@ -39,13 +39,16 @@ namespace ConsumirApi.app.models.consumo
             if (response.IsSuccessStatusCode)
             {
                 p = await response.Content.ReadFromJsonAsync<Pokemon>();
-                Console.WriteLine(p.ToString());
             }
 
-            if (p != null)
+            if (p != null && p.Name != null)
             {
+                Console.WriteLine(p.ToString());
+                var pokemons = from pokemon in Pokemons
+                               where pokemon.Name.ToLower() != p.Name.ToLower()
+                               select pokemon;
+                Pokemons = pokemons.ToHashSet();
                 Pokemons.Add(p);
-                Pokemons = Pokemons.Distinct().ToHashSet();
                 Console.WriteLine("Pokemon added.");
             }
         }

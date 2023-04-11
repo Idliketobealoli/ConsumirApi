@@ -28,9 +28,13 @@ namespace ConsumirApi.app.models.PokeApi
             var tostring = "Pokémon: " + Name + 
                 "\nExperiencia base: " + BaseExperience +
                 "\nHabilidades: \n[\n";
-            foreach (var item in Abilities)
+
+            if ( Abilities != null )
             {
-                tostring += $"   {item}\n";
+                foreach (var item in Abilities)
+                {
+                    tostring += $"   {item}\n";
+                }
             }
             tostring += "]";
             return tostring;
