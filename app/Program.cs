@@ -6,14 +6,15 @@
  * https://stackoverflow.com/questions/32892021/log4net-in-a-separate-configuration-file
  */
 
+using ConsumirApi.app.models.consumo;
 using log4net;
-using System.Configuration;
 
 namespace ConsumirApi.app
 {
     public class Program
     {
-        private static readonly ILog Log = loadLogs.Logs.GetLogger();
+        private static readonly ILog Log = loadLogs.Logs.GetLogger(); 
+        private static readonly Consumidor Cons = new Consumidor();
 
         private static void Main()
         {
@@ -38,9 +39,12 @@ namespace ConsumirApi.app
         {
             DirectoryInfo di = new (path);
 
-            foreach (FileInfo file in di.GetFiles())
+            if (di.Exists )
             {
-                file.Delete();
+                foreach (FileInfo file in di.GetFiles())
+                {
+                    file.Delete();
+                }
             }
         }
 
@@ -51,7 +55,11 @@ namespace ConsumirApi.app
 
             while (!salir)
             {
-                Console.WriteLine("\nEscoga la opción del menú: \n1.Buscar Pokémon\n2.Salir");
+                Console.WriteLine("\nEscoga la opción del menú: " +
+                    "\n1.Buscar Pokémon." +
+                    "\n2.Mostrar todos los pokemon en memoria." +
+                    "\n3.Mostrar pokemon en memoria por nombre." +
+                    "\n4.Salir");
                 var lectura = Console.ReadKey(true).KeyChar.ToString();
                 var opcion = 0;
 
@@ -60,23 +68,42 @@ namespace ConsumirApi.app
                 //Console.WriteLine(opcion);
                 switch (opcion)
                 {
-                    case 1: {
+                    case 1: 
+                        {
                             Console.WriteLine("Indique el nombre o ID del Pokémon:");
-                            var busqueda = Console.ReadKey().KeyChar.ToString();
+                            var busqueda = Console.ReadLine() ?? "";
                             Log.Info(busqueda);
+                            Cons.Find(busqueda);
                         }
                         break;
 
-                    case 2: {
-                        salir = true;
-                        };
+                    case 2: 
+                        {
+                            Console.WriteLine("Mostrando todos los pokemons en memoria...");
+                            Log.Info("Mostrando todos los pokemons.");
+                            Cons.Show();
+                        }
                         break;
 
-                    default: { 
-                        salir = true; 
-                        };
+                    case 3:
+                        {
+                            var name = Console.ReadLine() ?? "";
+                            Console.WriteLine($"Mostrando pokemon con nombre {name}...");
+                            Log.Info($"Mostrando pokemon con nombre {name}.");
+                            Cons.Show(name);
+                        }
                         break;
 
+                    case 4: salir = true;
+                        break;
+
+                    default: 
+                        { 
+                            salir = true;
+                            Console.WriteLine("Opcion invalida.");
+                            Log.Error("Opcion invalida.");
+                        }
+                        break;
                 }
             }
 

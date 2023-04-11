@@ -1,27 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace ConsumirApi.app.models.PokeApi
 {
     public class Pokemon
     {
-        public string name;
-        public int base_experience;
-        public List<Habilidades> abilities;
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+        [JsonPropertyName("base_experience")]
+        public int BaseExperience { get; set; }
+        [JsonPropertyName("abilities")]
+        public List<Habilidades> Abilities { get; set; }
+
+        [JsonConstructor]
+        public Pokemon()
+        {
+        }
 
         public Pokemon(string name, int base_experience, List<Habilidades> abilities)
         {
-            this.name = name;
-            this.base_experience = base_experience;
-            this.abilities = abilities;
+            Name = name;
+            BaseExperience = base_experience;
+            Abilities = abilities;
         }
 
         public override string ToString()
         {
-            return "Pokémon: " + name + " | Experiencia base: " + base_experience + " | Habilidades: " + abilities;
+            var tostring = "Pokémon: " + Name + 
+                "\nExperiencia base: " + BaseExperience +
+                "\nHabilidades: \n[\n";
+            foreach (var item in Abilities)
+            {
+                tostring += $"   {item}\n";
+            }
+            tostring += "]";
+            return tostring;
         }
     }
 }
