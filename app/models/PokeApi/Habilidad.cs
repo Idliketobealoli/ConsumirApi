@@ -6,8 +6,19 @@ using System.Threading.Tasks;
 
 namespace ConsumirApi.app.models.PokeApi
 {
-    internal class Habilidad
+    public class Habilidad
     {
         public string name;
+
+        public Habilidad(string name)
+        {
+            this.name = name;
+        }
+
+        public override string ToString()
+        {
+            return "Habilidad: " + name;
+        }
     }
+
 }

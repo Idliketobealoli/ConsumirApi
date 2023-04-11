@@ -6,11 +6,18 @@ using System.Threading.Tasks;
 
 namespace ConsumirApi.app.models.PokeApi
 {
-    internal class Habilidades
+    public class Habilidades
     {
         public Habilidad ability;
-        public Boolean is_hidden;
+        public bool is_hidden;
         public int slot;
+
+        public Habilidades(Habilidad ability, bool is_hidden, int slot)
+        {
+            this.ability = ability;
+            this.is_hidden = is_hidden;
+            this.slot = slot;
+        }
 
         public override string ToString()
         {
