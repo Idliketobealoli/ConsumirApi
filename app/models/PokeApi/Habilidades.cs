@@ -1,27 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace ConsumirApi.app.models.PokeApi
 {
     public class Habilidades
     {
-        public Habilidad ability;
-        public bool is_hidden;
-        public int slot;
+        [JsonPropertyName("ability")]
+        public Habilidad Ability { get; set; }
+        [JsonPropertyName("is_hidden")]
+        public bool IsHidden { get; set; }
+        [JsonPropertyName("slot")]
+        public int Slot { get; set; }
+
+        [JsonConstructor]
+        public Habilidades()
+        {
+        }
 
         public Habilidades(Habilidad ability, bool is_hidden, int slot)
         {
-            this.ability = ability;
-            this.is_hidden = is_hidden;
-            this.slot = slot;
+            Ability = ability;
+            IsHidden = is_hidden;
+            Slot = slot;
         }
 
         public override string ToString()
         {
-            return "Habilidad: " + ability + " | Oculta: " + is_hidden + " | Slot: " + slot;
+            return $"{Ability} | Oculta: {IsHidden} | Slot: {Slot}";
         }
     }
 }
